@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>atrament.js | illustrator 1.0</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" href="style.css">
+  </head>
+		<script src="../dist/atrament.min.js"></script>
+		<script>
+ function sound()
+{
+	var id = 'sound-file' ;
+
+	if( typeof( document.getElementById( id ).currentTime ) != 'undefined' )
+	{
+		document.getElementById( id ).currentTime = 0;
+	}
+
+	document.getElementById( id ).play() ;
+}
+</script>
+		<style>
+			canvas {
+				width: 100vw;
+				height: 100vh;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 2;
+			}
+
+			form {
+				z-index: 3;
+				position: fixed;
+				top: 300;
+				left: 100;
+				background: rgba(0, 0, 0, 0.7);
+				padding: 1em;
+				color:white;
+			}
+
+			form * {
+				margin-bottom: 1em;
+			}
+
+			@media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+				form * {
+					font-size: 1.5em;
+				}
+			}
+
+			body {
+				background-image: url('../assets/img/main-bird.png');
+				font-family: sans-serif;
+				padding: 1em;
+			}
+
+			#clear {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Draw Free !</h1>
+		<form>
+			<button id="clear" onclick="event.preventDefault(); atrament.clear();">clear</button><br>
+			<label>Thickness</label><br>
+			<input type="range" min="1" max="40" oninput="atrament.weight = parseFloat(event.target.value);" value="2" step="0.1" autocomplete="off"/><br>
+			<label>Smoothing</label><br>
+			<input type="checkbox" onchange="atrament.smoothing = event.target.checked;" checked autocomplete="off"><br>
+			<label>Adaptive stroke</label><br>
+			<input type="checkbox" onchange="atrament.adaptiveStroke = event.target.checked;" checked autocomplete="off"><br>
+			<label>Mode</label>
+			<select onchange="atrament.mode = event.target.value;">
+				<option value="draw" default>Draw</option>
+				<option value="fill" default>Fill</option>
+				<option value="erase" default>Erase</option>
+			</select><br>
+			<label>Colour</label>
+			<input type="color" onchange="atrament.color = event.target.value;" value="#000000" autocomplete="off"><br>
+			<label>Opacity</label><br>
+			<input type="range" min="0" max="1" onchange="atrament.opacity = parseFloat(event.target.value);" value="1" step="0.05" autocomplete="off">
+		</form>
+     
+		<canvas id="sketcher"></canvas>
+		<!--<a href="https://github.com/jakubfiala/atrament.js"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 3;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>-->
+		
+		<div id="header">
+        <audio id="sound-file" preload="auto">
+	     <source src="http://yukycohamabe.ciao.jp/mp3/bensound-november.mp3" type="audio/mp3">
+        </audio>
+        </div>
+        <div id="sub1">
+        <a onClick="sound()"><img src="elevator.js/img/hukurou.png" width="287"></a>
+      </div>
+	</body>
+	<script>
+		var canvas = document.getElementById('sketcher');
+		var atrament = atrament(canvas, window.innerWidth, window.innerHeight);
+
+		var clearButton = document.getElementById('clear');
+		canvas.addEventListener('dirty', function(e) {
+			clearButton.style.display = atrament.dirty ? 'inline-block' : 'none';
+		});
+	</script>
+</html>

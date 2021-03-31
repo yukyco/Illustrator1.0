@@ -1,0 +1,19 @@
+html, body {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #fff;
+    font-family: 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+.sub1 {
+    margin-left: 100px;
+    width: 200px;
+    margin: auto;
+    text-align: center;
+}
